@@ -62,6 +62,11 @@ namespace SearchConsole
 
             var query = new SearchQuery(text, algorithm, numRecords, timeOutLimit, rmDuplicates, logPrefix);
             
+            
+            //
+            // Search and get results
+            //
+            
             var result = SearchEngine.Search(query);
             for (int i = 0; i < result.SearchRecords.Length; i++)
             {
