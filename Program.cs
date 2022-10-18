@@ -77,6 +77,7 @@ namespace SearchConsole
                 }
             }
 
-        }
-    }
-}
+            
+        } // end void main
+    } // end class Program
+} // end namespace
