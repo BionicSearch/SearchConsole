@@ -66,10 +66,10 @@ namespace SearchConsole
 
             var query = new SearchQuery(text, algorithm, numRecords, timeOutLimit, rmDuplicates, logPrefix);
             
-
             //
             // Search and retrieve records
             //
+            
 
             var result = SearchEngine.Search(query);
 
