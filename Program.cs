@@ -7,6 +7,7 @@ namespace SearchConsole
         {
             var SearchEngine = new  BionicSearchEngine(null, null, 103);
 
+
             //
             // Prepare data
             //
@@ -15,6 +16,7 @@ namespace SearchConsole
             string path = Path.Combine(Environment.CurrentDirectory, fileName);
 
             var lines = File.ReadAllLines(path);
+
 
             //
             // Insert
@@ -31,6 +33,7 @@ namespace SearchConsole
 
             SearchEngine.Insert(documents.ToArray());
 
+
             //
             // Index
             //
@@ -45,33 +48,38 @@ namespace SearchConsole
             var status = SearchEngine.Status;
             while (!status.SearchIsAllowed) // Check and print status while indexing
             {
-                Console.WriteLine(status.IndexProgressPercent);
+                Console.WriteLine(status.IndexProgressPercent + "%");
                 System.Threading.Thread.Sleep(5); // log every 5ms
             }
 
+
             //
-            // Search query
+            // Set up search query
             //
 
-            var text = "frankfrt"; // pattern to be searched for
+            var text = "frnkfrt amain"; // pattern to be searched for
             var algorithm = Algorithm.ProprietaryRelevancyRanking; // Default algorithm
-            var numRecords = 10; // Records to be returned
+            var numRecords = 5; // Records to be returned
             var timeOutLimit = 1000; // Timeout if cpu overload in milliseconds
             var rmDuplicates = true; // remove duplicates with same key
             var logPrefix = ""; // logger prefix per search
 
             var query = new SearchQuery(text, algorithm, numRecords, timeOutLimit, rmDuplicates, logPrefix);
             
+
+            //
+            // Search and retrieve records
+            //
+
             var result = SearchEngine.Search(query);
-            for (int i = 0; i < result.SearchRecords.Length; i++)
+
+            foreach (var record in result.SearchRecords)
             {
-                if(result.SearchRecords[i].MetricScore >= 100)
-                {
-                    Console.WriteLine(result.SearchRecords[i].DocumentTextToBeIndexed);
-                    Console.WriteLine(result.SearchRecords[i].MetricScore);
-                }
+                    Console.WriteLine(record.DocumentTextToBeIndexed);
+                    Console.WriteLine(record.MetricScore);
             }
 
-        }
-    }
-}
+
+        } // end main
+    } // end class
+} // end namespace
